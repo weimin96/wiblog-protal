@@ -22,9 +22,18 @@ const routes = [
   { path: '*', redirect: '/404', hidden: true, meta: { title: '404', resourceId: '404' }}
 ]
 
-const router = new VueRouter({
-  scrollBehavior: () => ({ y: 0 }),
-  routes
-})
+// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
+}
+
+const createRouter = () =>
+  new VueRouter({
+    scrollBehavior: () => ({ y: 0 }),
+    routes
+  })
+
+const router = createRouter()
 
 export default router
