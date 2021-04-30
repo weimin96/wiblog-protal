@@ -1,4 +1,4 @@
-# m-blog
+# wiblog-portal
 
 ## Project setup
 ```

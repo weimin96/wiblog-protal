@@ -11,6 +11,10 @@ const routes = [
     component: Home
   },
   {
+    path: '/index',
+    redirect: { name: '/' }
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
@@ -19,14 +23,13 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
+  {
+    path: '/post/*',
+    name: 'Post',
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
   { path: '*', redirect: '/404', hidden: true, meta: { title: '404', resourceId: '404' }}
 ]
-
-// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
-export function resetRouter() {
-  const newRouter = createRouter()
-  router.matcher = newRouter.matcher // reset router
-}
 
 const createRouter = () =>
   new VueRouter({
@@ -35,5 +38,11 @@ const createRouter = () =>
   })
 
 const router = createRouter()
+
+// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
+}
 
 export default router

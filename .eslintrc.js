@@ -9,6 +9,10 @@ module.exports = {
     node: true,
     es6: true,
   },
+  globals: {
+    moment: true,
+    $_: true
+  },
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
 
   // add your custom rules here

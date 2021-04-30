@@ -7,12 +7,19 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import HelloWorld from '@c/HelloWorld'
 
 export default {
   name: 'Home',
   components: {
     HelloWorld
+  },
+  mounted() {
+    console.log(moment.months())
   }
 }
 </script>
+
+<style type="less" scoped>
+
+</style>
