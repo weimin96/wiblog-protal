@@ -19,7 +19,7 @@ export const getBaseUrl = () => {
 
 // create an axios instance
 const service = axios.create({
-  baseUrl: '',
+  baseUrl: 'https://www.wiblog.cn/',
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 200000 // request timeout
 })

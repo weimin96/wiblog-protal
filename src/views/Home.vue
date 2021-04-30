@@ -8,6 +8,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@c/HelloWorld'
+import { articlesApi } from '@/api/article'
 
 export default {
   name: 'Home',
@@ -16,6 +17,9 @@ export default {
   },
   mounted() {
     console.log(moment.months())
+    articlesApi().then((res) => {
+      console.log(res)
+    })
   }
 }
 </script>

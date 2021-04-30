@@ -40,8 +40,13 @@ module.exports = {
       }
     },
     optimization: {
-      minimize: process.env.NODE_ENV === 'development',
       minimizer: [new TerserPlugin({ terserOptions: { compress: { drop_console: true }}})]
     }
   }
+  // chainWebpack: (config) => {
+  //   config.optimization.minimizer('terser').tap((args) => {
+  //     args[0].terserOptions.compress.drop_console = true
+  //     return args
+  //   })
+  // }
 }
