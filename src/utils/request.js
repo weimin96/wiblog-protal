@@ -11,18 +11,18 @@ import store from '@/store'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import Vue from 'vue'
 
 export const getBaseUrl = () => {
-  return Vue.prototype.VUE_APP_HOST
+  return process.env.VUE_APP_HOST
 }
 
 // create an axios instance
 const service = axios.create({
-  baseUrl: 'https://www.wiblog.cn/',
+  baseURL: getBaseUrl(),
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 200000 // request timeout
 })
+console.log(getBaseUrl())
 service.interceptors.request.use(
   config => {
     // do something before request is sent
@@ -33,9 +33,6 @@ service.interceptors.request.use(
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
       config.headers['token'] = getToken()
-    }
-    if (config.baseURL === '') {
-      config.baseURL = getBaseUrl()
     }
     return config
   },
@@ -62,7 +59,7 @@ service.interceptors.response.use(
     const res = response.data
     NProgress.done()
     // if the custom code is not 20000, it is judged as an error.
-    if (res.ackCode !== 200) {
+    if (res.code !== 10000) {
       Message({
         message: res.message || '服务器异常！',
         type: 'error',

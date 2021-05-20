@@ -1,23 +1,44 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Element from 'element-ui'
 import router from './router/index'
 import store from './store'
 import Router from 'vue-router'
 
+import Element from 'element-ui'
+// yarn add animate.css
+import animated from 'animate.css'
+// yarn add font-awesome
+import 'font-awesome/css/font-awesome.css'
+// yarn add vue-bus
+import VueBus from 'vue-bus'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+// Import Bootstrap an BootstrapVue CSS files (order is important)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+import { getCategoryApi } from '@/api/category'
+
 Vue.config.productionTip = false
 Vue.use(Element)
+Vue.use(animated)
+Vue.use(VueBus)
+
+// Make BootstrapVue available throughout your project
+Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
+
 // 若是没有开启Devtools工具，在开发环境中开启，在生产环境中关闭
-if (process.env.NODE_ENV === 'development') {
-  Vue.config.devtools = true
-} else {
-  Vue.config.devtools = false
-}
+Vue.config.devtools = process.env.NODE_ENV === 'development'
 // 解决相同路径跳转报错
 const routerPush = Router.prototype.push
 Router.prototype.push = function push(location) {
   return routerPush.call(this, location).catch(error => error)
 }
+
+getCategoryApi({}, (res) => {
+  console.log(res)
+})
 
 new Vue({
   router,

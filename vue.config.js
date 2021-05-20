@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const port = process.env.port || process.env.npm_config_port || 9090
 
@@ -19,6 +20,15 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
+    },
+    proxy: {
+      '/api': {
+        target: 'https://www.wiblog.cn',
+        ws: true,
+        pathRewrite: {
+          '^/api': '/'
+        }
+      }
     }
   },
   // 合并到webpack
@@ -29,7 +39,8 @@ module.exports = {
         // 时间格式化
         moment: 'moment',
         // JavaScript 实用工具库
-        $_: 'lodash'
+        $_: 'lodash',
+        $: 'jquery'
       })
     ],
     resolve: {
@@ -39,14 +50,26 @@ module.exports = {
         '@c': resolve('src/components')
       }
     },
+    devtool: process.env.NODE_ENV === 'development' ? 'source-map' : undefined,
     optimization: {
       minimizer: [new TerserPlugin({ terserOptions: { compress: { drop_console: true }}})]
     }
+  },
+  css: {
+    loaderOptions: {
+      sass: {
+        prependData: `
+                @import "@/style/mixins.scss";
+                `
+      }
+    }
+  },
+  chainWebpack: config => {
+    config
+      .plugin('html')
+      .tap(args => {
+        args[0].template = './src/index.html'
+        return args
+      })
   }
-  // chainWebpack: (config) => {
-  //   config.optimization.minimizer('terser').tap((args) => {
-  //     args[0].terserOptions.compress.drop_console = true
-  //     return args
-  //   })
-  // }
 }

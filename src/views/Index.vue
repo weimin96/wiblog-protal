@@ -7,7 +7,7 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@c/HelloWorld'
+import HelloWorld from '@/components/HelloWorld'
 import { articlesApi } from '@/api/article'
 
 export default {
@@ -24,6 +24,6 @@ export default {
 }
 </script>
 
-<style type="less" scoped>
+<style type="scss" scoped>
 
 </style>
