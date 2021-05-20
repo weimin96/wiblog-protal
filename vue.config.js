@@ -64,12 +64,12 @@ module.exports = {
       }
     }
   },
-  chainWebpack: config => {
-    config
-      .plugin('html')
-      .tap(args => {
-        args[0].template = './src/index.html'
-        return args
-      })
-  }
+  // chainWebpack: config => {
+  //   config
+  //     .plugin('html')
+  //     .tap(args => {
+  //       args[0].template = './src/index.html'
+  //       return args
+  //     })
+  // }
 }

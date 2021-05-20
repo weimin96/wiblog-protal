@@ -16,8 +16,6 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-import { getCategoryApi } from '@/api/category'
-
 Vue.config.productionTip = false
 Vue.use(Element)
 Vue.use(animated)
@@ -36,9 +34,7 @@ Router.prototype.push = function push(location) {
   return routerPush.call(this, location).catch(error => error)
 }
 
-getCategoryApi({}, (res) => {
-  console.log(res)
-})
+store.dispatch('menu/setMenu')
 
 new Vue({
   router,

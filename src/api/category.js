@@ -7,7 +7,7 @@ const url = '/category'
 export function getCategoryApi(data) {
   return request({
     url: url + '/getCategory',
-    method: 'post',
+    method: 'get',
     data: Qs.stringify(data)
   })
 }

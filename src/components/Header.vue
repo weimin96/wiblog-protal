@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="#">
-        NavBar
+        wiblog
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse" />
@@ -43,7 +43,7 @@
 
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
-            <template #button-content>
+            <template v-slot:button-content>
               <em>User</em>
             </template>
             <b-dropdown-item href="#">
