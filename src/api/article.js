@@ -47,3 +47,11 @@ export function searchArticleApi(data) {
     data: Qs.stringify(data)
   })
 }
+
+// 热门文章
+export function getArticleRankApi() {
+  return request({
+    url: url + '/getArticleRank',
+    method: 'get'
+  })
+}

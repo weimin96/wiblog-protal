@@ -41,6 +41,13 @@ module.exports = {
         // JavaScript 实用工具库
         $_: 'lodash',
         $: 'jquery'
+      }),
+      new HtmlWebpackPlugin({
+        title: 'test',
+        filename: './index.html',
+        template: 'src/index.html',
+        inject: true,
+        favicon: './favicon.ico' // 设置favicon
       })
     ],
     resolve: {
@@ -63,13 +70,5 @@ module.exports = {
                 `
       }
     }
-  },
-  // chainWebpack: config => {
-  //   config
-  //     .plugin('html')
-  //     .tap(args => {
-  //       args[0].template = './src/index.html'
-  //       return args
-  //     })
-  // }
+  }
 }

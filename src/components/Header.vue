@@ -12,9 +12,6 @@
           <b-nav-item href="#">
             Link
           </b-nav-item>
-          <b-nav-item href="#" disabled>
-            Disabled
-          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -60,8 +57,20 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'Header'
+  name: 'Header',
+  data() {
+    return {
+
+    }
+  },
+  computed: {
+    ...mapState({
+      menu: state => state.menu.menuTree
+    })
+  }
 }
 </script>
 
