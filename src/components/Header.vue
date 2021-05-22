@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand href="#">
         wiblog
       </b-navbar-brand>
@@ -9,47 +9,29 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="#">
-            Link
-          </b-nav-item>
+          <div v-for="item in menu" :key="item.id">
+            <b-nav-item-dropdown v-if="item.children">
+              <template v-slot:button-content>
+                {{ item.name }}
+              </template>
+              <b-dropdown-item v-for="it in item.children" :key="it.id" :href="it.url">
+                {{ it.name }}
+              </b-dropdown-item>
+            </b-nav-item-dropdown>
+            <b-nav-item v-else :href="item.url">
+              {{ item.name }}
+            </b-nav-item>
+          </div>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" placeholder="Search" />
+            <b-form-input size="sm" class="mr-sm-2" placeholder="" />
             <b-button size="sm" class="my-2 my-sm-0" type="submit">
-              Search
+              搜索
             </b-button>
           </b-nav-form>
-
-          <b-nav-item-dropdown text="Lang" right>
-            <b-dropdown-item href="#">
-              EN
-            </b-dropdown-item>
-            <b-dropdown-item href="#">
-              ES
-            </b-dropdown-item>
-            <b-dropdown-item href="#">
-              RU
-            </b-dropdown-item>
-            <b-dropdown-item href="#">
-              FA
-            </b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
-            <template v-slot:button-content>
-              <em>User</em>
-            </template>
-            <b-dropdown-item href="#">
-              Profile
-            </b-dropdown-item>
-            <b-dropdown-item href="#">
-              Sign Out
-            </b-dropdown-item>
-          </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
