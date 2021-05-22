@@ -1,23 +1,29 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div v-for="item in articleList" :key="item.id">
+      <article-card-item :data="item"/>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld'
 import { articlesApi } from '@/api/article'
+import ArticleCardItem from '@c/home/ArticleCardItem'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    ArticleCardItem
+  },
+  data() {
+    return {
+      articleList: []
+    }
   },
   mounted() {
     console.log(moment.months())
     articlesApi().then((res) => {
-      console.log(res)
+      this.articleList = res.data.records
     })
   }
 }
