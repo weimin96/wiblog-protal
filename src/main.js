@@ -38,7 +38,7 @@ Router.prototype.push = function push(location) {
 }
 
 store.dispatch('menu/setMenu')
-store.dispatch('article/setArticleRank')
+// store.dispatch('article/setArticleRank')
 
 new Vue({
   router,

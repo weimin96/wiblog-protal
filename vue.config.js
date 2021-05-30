@@ -23,10 +23,10 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'https://www.wiblog.cn',
+        target: 'https://m.wiblog.cn',
         ws: true,
         pathRewrite: {
-          '^/api': '/'
+          '^/api': '/api'
         }
       }
     }
@@ -57,10 +57,10 @@ module.exports = {
         '@c': resolve('src/components')
       }
     },
-    devtool: process.env.NODE_ENV === 'development' ? 'source-map' : undefined,
-    optimization: {
-      minimizer: [new TerserPlugin({ terserOptions: { compress: { drop_console: true }}})]
-    }
+    devtool: process.env.NODE_ENV === 'development' ? 'source-map' : undefined
+    // optimization: {
+    //   minimizer: [new TerserPlugin({ terserOptions: { compress: { drop_console: true }}})]
+    // }
   },
   css: {
     loaderOptions: {

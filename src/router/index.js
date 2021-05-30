@@ -20,6 +20,11 @@ const routes = [
     component: () => import('@/views/article/Article')
   },
   {
+    path: '/category/*',
+    name: 'category',
+    component: () => import('@/views/category/Category')
+  },
+  {
     path: '/search',
     name: 'Search',
     component: () => import('@/views/search/Index')

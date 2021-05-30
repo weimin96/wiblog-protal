@@ -15,9 +15,8 @@ export function getCategoryApi(data) {
 // 获取分类id
 export function getCategoryIdByUrlApi(data) {
   return request({
-    url: url + '/getCategoryIdByUrl',
-    method: 'post',
-    data: Qs.stringify(data)
+    url: url + '/getCategoryIdByUrl?' + Qs.stringify(data),
+    method: 'get'
   })
 }
 

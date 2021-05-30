@@ -10,10 +10,11 @@
 
 <script>
 import { articlesApi } from '@/api/article'
+import { getCategoryIdByUrlApi } from '@/api/category'
 import ArticleCardItem from '@c/home/ArticleCardItem'
 
 export default {
-  name: 'Index',
+  name: 'Category',
   components: {
     ArticleCardItem
   },
@@ -22,7 +23,8 @@ export default {
       articleList: [],
       page: {
         pageNum: 1,
-        pageSize: 5
+        pageSize: 5,
+        categoryId: ''
       },
       isLoading: false,
       isEnd: false,
@@ -31,12 +33,30 @@ export default {
   },
   mounted() {
     this.scroll()
-    this.getArticle()
+    this.init()
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.scrollEvent, false)
   },
   methods: {
+    async init() {
+      this.articleList = []
+      const categoryId = await this.getCategoryIdByUrl()
+      if (categoryId !== null) {
+        this.getArticle()
+      }
+    },
+    getCategoryIdByUrl() {
+      let url = this.$route.path
+      url = url.substring(url.lastIndexOf('/') + 1)
+      return getCategoryIdByUrlApi({ url: url }).then(res => {
+        if (res.code === 10000) {
+          this.page.categoryId = res.data
+          return res.data
+        }
+        return null
+      })
+    },
     getArticle() {
       articlesApi(this.page).then((res) => {
         if (res.code === 10000) {
