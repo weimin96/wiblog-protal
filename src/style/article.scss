@@ -1,0 +1,152 @@
+
+@mixin h2h3 {
+  font-weight: 700;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  line-height: 1.4;
+  background-repeat: no-repeat;
+}
+
+
+.article-content{
+  line-height: 1.8;
+  font-size: 15px;
+  h2{
+    @include h2h3;
+    font-size: 20px;
+    background-image: url(../assets/h2.svg);
+    background-position: 0 7px;
+    padding-left: 25px;
+  }
+  h3{
+    @include h2h3;
+    font-size: 18px;
+    background-image: url(../assets/h3.svg);
+    color: rgba(0,0,0,.68);
+    padding-left: 15px;
+    background-position: 0 6px;
+  }
+  img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    height: auto;
+    border-style: none;
+  }
+
+  table{
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  /*导航*/
+  .affix{
+    position: fixed;
+    top:20px;
+    width: 15.66667%;
+  }
+
+  /*.affix-top{
+      position: relative;
+  }*/
+
+  .nav>li{
+    position: relative;
+    display: block;
+  }
+
+  .nav>.active>a{
+    padding-left: 18px;
+    font-weight: 700;
+    color: #563d7c;
+    background-color: transparent;
+    border-left: 2px solid #563d7c;
+    word-break: break-word;
+  }
+
+  .nav>li>a{
+    display: block;
+    padding: 4px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #767676;
+    word-break: break-word;
+  }
+
+  .nav .nav{
+    display: none;
+    padding-bottom: 10px;
+  }
+
+  .nav>.active>ul{
+    display: block;
+  }
+
+  td,th{
+    min-width: 125px;
+    border: 1px solid #999;
+    padding: 5px;
+    text-align: center;
+  }
+
+  a:hover {
+    text-decoration:none;
+  }
+
+  /*引用*/
+  blockquote{
+    background-image: url(../assets/b.svg);
+    background-repeat: no-repeat;
+    background-position: left 30px top 20px;
+    background-color: #f8f8f8;
+    color: rgba(0,0,0,.68);
+    margin: 30px 0;
+    padding: 40px 30px 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+  }
+
+  p {
+    margin: 13px auto;
+    font-weight: 300;
+    font-size: 16px;
+  }
+
+
+
+  h4{
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 10px 0;
+    color: #009688;
+  }
+
+  pre code{
+    display: block;
+    color: #333;
+    overflow-x: auto;
+    background: #F2F4F5!important;
+    border: none!important;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace!important;
+    padding: 1em!important;
+    font-size: 14px!important;
+  }
+
+  ul li{
+    list-style: disc;
+    margin-left: 20px;
+  }
+
+  li ul li{
+    list-style: circle;
+  }
+
+  ol li{
+    list-style: decimal;
+  }
+
+  a{
+    color: #2fa4e7;
+  }
+}

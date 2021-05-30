@@ -15,9 +15,8 @@ export function articlesApi(data) {
 // 文章详情
 export function getArticleApi(data) {
   return request({
-    url: url + '/getArticle',
-    method: 'post',
-    data: Qs.stringify(data)
+    url: url + '/getArticle?' + Qs.stringify(data),
+    method: 'get'
   })
 }
 

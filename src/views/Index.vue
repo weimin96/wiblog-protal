@@ -1,7 +1,9 @@
 <template>
   <div class="home">
-    <div v-for="item in articleList" :key="item.id">
-      <article-card-item :data="item"/>
+    <div class="flow-list-container">
+      <div v-for="item in articleList" :key="item.id" class="flow-list-ul">
+        <article-card-item :data="item"/>
+      </div>
     </div>
   </div>
 </template>
@@ -21,7 +23,6 @@ export default {
     }
   },
   mounted() {
-    console.log(moment.months())
     articlesApi().then((res) => {
       this.articleList = res.data.records
     })
@@ -30,5 +31,23 @@ export default {
 </script>
 
 <style type="scss" scoped>
+  .home{
+    padding: 0 18px;
+    .flow-list-container{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      .flow-list-ul {
+        position: relative;
+        min-height: 100%;
+        width: 100%;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-left: 0;
+        list-style-type: none;
+      }
+    }
+  }
 
 </style>

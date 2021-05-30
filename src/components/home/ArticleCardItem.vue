@@ -1,6 +1,6 @@
 <template>
   <div>
-    <li class="note-flow">
+    <div class="note-flow" @click="gotoArticle">
       <div class="content">
         <span class="wrap-img inline-3MDdF_0" style="width: 80px; height: 80px;">
           <img :src="data.imgUrl">
@@ -15,20 +15,23 @@
         </div>
       </div>
       <div class="meta oneline">
-        <i class="iconfont ic-icon_jewel" />
-        <span>27.674</span>
-        <span class="name">漫小文</span>
+        <i class="iconfont icon-rili" />
+        <span>{{ data.createTime | dateFormat }}</span>
         <span>
-          <i class="iconfont ic-list-comments"/>
-          27
+          <i class="iconfont icon-pinglun"/>
+          {{ data.commentsCounts }}
         </span>
         <span>
-          <i class="iconfont ic-list-like" />
-          147
+          <i class="iconfont icon-yanjing" />
+          {{ data.hits }}
+        </span>
+        <span>
+          <i class="iconfont icon-dianzan" />
+          {{ data.likes }}
         </span>
         <span class="note__flow__download">阅读全文</span>
       </div>
-    </li>
+    </div>
   </div>
 </template>
 
@@ -41,6 +44,11 @@ export default {
       default: () => {
         return {}
       }
+    }
+  },
+  methods: {
+    gotoArticle() {
+      this.$router.push(this.data.articleUrl)
     }
   }
 }
@@ -65,18 +73,19 @@ export default {
     display: table;
   }
   .content {
-    padding-right: 95px;
+    padding-right: 90px;
     margin-top: 6px;
     display: block;
     .wrap-img {
       position: absolute;
       top: 50%;
-      right: 25px;
+      right: 12px;
       margin-top: -50px;
       border-radius: 3px;
     }
     .summary {
       overflow: hidden;
+      text-align: left;
       .title {
         font-size: 18px;
         font-weight: 700;
@@ -116,10 +125,16 @@ export default {
     }
   }
   .meta {
-    padding-right: 95px;
+    /*padding-right: 90px;*/
     margin-top: 15px;
     line-height: 22px;
     position: relative;
+    text-align: left;
+    span {
+      margin-right: 8px;
+      font-size: 12px;
+      color: #b1b1b1;
+    }
   }
   .oneline {
     overflow: hidden;

@@ -15,3 +15,10 @@ export function logoutApi() {
     method: 'post'
   })
 }
+
+export function infoApi(data) {
+  return request({
+    url: '/u/info?' + Qs.stringify(data),
+    method: 'get'
+  })
+}
