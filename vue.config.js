@@ -64,10 +64,12 @@ module.exports = {
   },
   chainWebpack: (config) => {
     // 忽略的打包文件
-    config.externals({
-      'axios': 'axios',
-      'element-ui': 'ELEMENT'
-    })
+    if (process.env.VUE_APP_MODE === 'production') {
+      config.externals({
+        'axios': 'axios',
+        'element-ui': 'ELEMENT'
+      })
+    }
   },
   css: {
     loaderOptions: {

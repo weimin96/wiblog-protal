@@ -10,16 +10,16 @@
         <div class="top-meta">
           <div class="postMetaInline-avatar">
             <a>
-              <img :src="authorImg" alt="" height="32" width="32" class="avatar"></a>
+              <img :src="authorImg" alt="" height="32" width="32" class="avatar" onerror="this.src = 'https://wiblog-1251822424.cos.ap-guangzhou.myqcloud.com/20210531150120-avatar.svg'"></a>
           </div>
           <div class="postMetaInline-feedSummary">
             <span class="cute">
               <a>{{ article.author }}</a></span>
-            <span class="postMetaInline--supplemental">{{ article.createTime | articleDateFormat }}</span>
+            <span class="postMetaInline--supplemental">{{ article.createTime | dateFormat }}</span>
           </div>
         </div>
         <div class="article-content" v-html="content" />
-        <div class="post-tags" v-for="item in tagList" :key="item">
+        <div v-for="item in tagList" :key="item" class="post-tags">
           <a rel="tag">{{ item }}</a>
         </div>
         <div>
@@ -40,27 +40,6 @@ import '@/style/article.scss'
 
 export default {
   name: 'Article',
-  filters: {
-    articleDateFormat: function(d) {
-      if (d === '') {
-        return ''
-      }
-      var date = new Date(d)
-      var year = date.getFullYear()
-      var month = change(date.getMonth() + 1)
-      var day = change(date.getDate())
-
-      function change(t) {
-        if (t < 10) {
-          return '0' + t
-        } else {
-          return t
-        }
-      }
-
-      return year + '-' + month + '-' + day
-    }
-  },
   data() {
     return {
       article: {},
@@ -70,6 +49,7 @@ export default {
     }
   },
   created() {
+    moment()
     marked.setOptions({
       highlight: function(code) {
         return hljs.highlightAuto(code).value

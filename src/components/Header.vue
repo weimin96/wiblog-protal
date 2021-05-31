@@ -4,8 +4,7 @@
       <b-navbar-brand href="#" @click="gotoUrl('/')">
         wiblog
       </b-navbar-brand>
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
+      <b-navbar-nav>
         <b-nav-form>
           <b-form-input size="sm" class="mr-sm-2" placeholder="" />
           <b-button size="sm" class="my-2 my-sm-0" type="submit">
@@ -13,26 +12,25 @@
           </b-button>
         </b-nav-form>
       </b-navbar-nav>
-    </b-navbar>
-    <b-navbar-toggle target="nav-collapse" />
-
-    <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav>
-        <div v-for="item in menu" :key="item.id">
-          <b-nav-item-dropdown v-if="item.children">
-            <template v-slot:button-content>
+      <b-navbar-toggle target="nav-collapse" />
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <div v-for="item in menu" :key="item.id">
+            <b-nav-item-dropdown v-if="item.children">
+              <template v-slot:button-content>
+                {{ item.name }}
+              </template>
+              <b-dropdown-item v-for="it in item.children" :key="it.id" @click="gotoUrl('/category/' + it.url)">
+                {{ it.name }}
+              </b-dropdown-item>
+            </b-nav-item-dropdown>
+            <b-nav-item v-else @click="gotoUrl('/category/' + item.url)">
               {{ item.name }}
-            </template>
-            <b-dropdown-item v-for="it in item.children" :key="it.id" @click="gotoUrl('/category/' + it.url)">
-              {{ it.name }}
-            </b-dropdown-item>
-          </b-nav-item-dropdown>
-          <b-nav-item v-else @click="gotoUrl('/category/' + item.url)">
-            {{ item.name }}
-          </b-nav-item>
-        </div>
-      </b-navbar-nav>
-    </b-collapse>
+            </b-nav-item>
+          </div>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
   </div>
 </template>
 
@@ -59,6 +57,11 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .form-control{
+    width: 9rem;
+  }
+  .navbar-brand{
+    margin-right: 0.5rem;
+  }
 </style>
