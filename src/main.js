@@ -4,11 +4,6 @@ import router from './router/index'
 import store from './store'
 import Router from 'vue-router'
 
-import Element from 'element-ui'
-// yarn add animate.css
-import animated from 'animate.css'
-// yarn add font-awesome
-import 'font-awesome/css/font-awesome.css'
 // yarn add vue-bus
 import VueBus from 'vue-bus'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
@@ -20,8 +15,6 @@ import '@/style/all.scss'
 import filters from '@/utils/filters'
 
 Vue.config.productionTip = false
-Vue.use(Element)
-Vue.use(animated)
 Vue.use(VueBus)
 
 // Make BootstrapVue available throughout your project

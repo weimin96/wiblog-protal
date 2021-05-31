@@ -8,8 +8,8 @@ const port = process.env.port || process.env.npm_config_port || 9090
 function resolve(dir) {
   return path.join(__dirname, './', dir)
 }
+
 module.exports = {
-  publicPath: '/',
   assetsDir: 'static',
   // 是否在开发环境下通过 eslint-loader 在每次保存时 lint 代码 生产构建期间禁用
   lintOnSave: process.env.NODE_ENV !== 'production',
@@ -62,13 +62,19 @@ module.exports = {
       minimizer: [new TerserPlugin({ terserOptions: { compress: { drop_console: true }}})]
     }
   },
+  chainWebpack: (config) => {
+    // 忽略的打包文件
+    config.externals({
+      'axios': 'axios',
+      'element-ui': 'ELEMENT'
+    })
+  },
   css: {
     loaderOptions: {
       sass: {
-        prependData: `
-                @import "@/style/mixins.scss";
-                `
+        prependData: '@import "@/style/mixins.scss";'
       }
     }
-  }
+  },
+  productionSourceMap: false
 }

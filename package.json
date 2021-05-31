@@ -20,14 +20,11 @@
     ]
   },
   "dependencies": {
-    "animate.css": "^4.1.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.21.0",
     "core-js": "^3.6.5",
-    "element-ui": "^2.15.1",
-    "express": "^4.17.1",
-    "font-awesome": "^4.7.0",
+    "element-ui": "^2.13.2",
     "highlight.js": "^10.7.2",
     "html-webpack-plugin": "^4.0.0-beta.5",
     "husky": "^6.0.0",

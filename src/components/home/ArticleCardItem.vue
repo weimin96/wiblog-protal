@@ -18,7 +18,7 @@
         <i class="iconfont icon-rili" />
         <span>{{ data.createTime | dateFormat }}</span>
         <span>
-          <i class="iconfont icon-pinglun"/>
+          <i class="iconfont icon-pinglun" />
           {{ data.commentsCounts }}
         </span>
         <span>
