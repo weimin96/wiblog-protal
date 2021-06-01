@@ -64,7 +64,7 @@ module.exports = {
   },
   chainWebpack: (config) => {
     // 忽略的打包文件
-    if (process.env.VUE_APP_MODE === 'production') {
+    if (process.env.NODE_ENV === 'production') {
       config.externals({
         'axios': 'axios',
         'element-ui': 'ELEMENT'

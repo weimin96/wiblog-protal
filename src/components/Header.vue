@@ -6,8 +6,8 @@
       </b-navbar-brand>
       <b-navbar-nav>
         <b-nav-form>
-          <b-form-input size="sm" class="mr-sm-2" placeholder="" />
-          <b-button size="sm" class="my-2 my-sm-0" type="submit">
+          <b-form-input v-model="searchVal" size="sm" class="mr-sm-2" placeholder="" />
+          <b-button size="sm" class="my-2 my-sm-0" type="submit" @click="search">
             搜索
           </b-button>
         </b-nav-form>
@@ -36,12 +36,13 @@
 
 <script>
 import { mapState } from 'vuex'
+import { getQueryVariable } from '@/utils/utils'
 
 export default {
   name: 'Header',
   data() {
     return {
-
+      searchVal: ''
     }
   },
   computed: {
@@ -49,9 +50,16 @@ export default {
       menu: state => state.menu.menuTree
     })
   },
+  mounted() {
+    this.searchVal = getQueryVariable('val')
+  },
   methods: {
     gotoUrl(url) {
       this.$router.push(url)
+    },
+    search() {
+      this.$router.push({ path: '/search', query: { val: this.searchVal }})
+      this.$bus.emit('search', this.searchVal)
     }
   }
 }

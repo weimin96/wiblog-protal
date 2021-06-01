@@ -1,0 +1,141 @@
+<template>
+  <div>
+    <div v-for="item in list" :key="item.id">
+      <div class="card" @click="gotoPage(item.url)">
+        <div class="title">
+          <a href="#">
+            <span>{{ item.title }}</span>
+          </a>
+        </div>
+        <div class="abstract">
+          <span>{{ item.createTime | dateFormat }} - </span>
+          <span v-html="item.content" />
+          <div class="category">
+            <span class="category-tag el-tag el-tag--light">{{ menuVal(item.categoryId) }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { searchArticleApi } from '@/api/article'
+import { getQueryVariable } from '@/utils/utils'
+import { mapState } from 'vuex'
+
+export default {
+  name: 'Search',
+  data() {
+    return {
+      searchVal: '',
+      list: [],
+      page: {
+        keyword: '',
+        pageNum: 0,
+        pageSize: 4
+      },
+      isLoading: false,
+      scrollEvent: null
+    }
+  },
+  computed: {
+    ...mapState({
+      menu: state => state.menu.menu
+    }),
+    menuVal: function() {
+      return function(d) {
+        const obj = this.menu.find(item => {
+          return item.id === d
+        })
+        if (obj) {
+          return obj.name
+        }
+        return ''
+      }
+    }
+  },
+  mounted() {
+    this.$bus.on('search', this.searchNewPage)
+    this.searchVal = getQueryVariable('val')
+    this.scroll()
+    this.search()
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.scrollEvent, false)
+  },
+  methods: {
+    searchNewPage(val) {
+      this.searchVal = val
+      if (!this.searchVal || this.searchVal.trim() === '') {
+        return
+      }
+      this.page.keyword = val
+      searchArticleApi(this.page).then(res => {
+        if (res.code === 10000) {
+          this.list = res.data
+        }
+      })
+    },
+    search() {
+      if (!this.searchVal || this.searchVal.trim() === '') {
+        return
+      }
+      this.page.keyword = this.searchVal
+      searchArticleApi(this.page).then(res => {
+        if (res.code === 10000) {
+          if (res.data.length > 0) {
+            this.list = this.list.concat(res.data)
+            this.isLoading = false
+          } else {
+            window.removeEventListener('scroll', this.scrollEvent, false)
+          }
+        }
+      })
+    },
+    gotoPage(url) {
+      this.$router.push(url)
+    },
+    scroll() {
+      this.isLoading = false
+      this.scrollEvent = window.onscroll = () => {
+        // 距离底部200px时加载一次
+        const bottomOfWindow = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight <= 300
+        if (bottomOfWindow && !this.isLoading) {
+          this.isLoading = true
+          this.page.pageNum++
+          this.search()
+        }
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  .card{
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 24px;
+    .title {
+      line-height: 1.54;
+      padding-bottom: 10px;
+      font-weight: 400;
+      font-size: medium;
+      margin-bottom: 1px;
+    }
+    .abstract {
+      font-size: 13px;
+      /deep/ p {
+        color: red;
+        display: inline;
+        font-weight: bold;
+      }
+      .category {
+        margin-top: 8px;
+      }
+    }
+  }
+</style>

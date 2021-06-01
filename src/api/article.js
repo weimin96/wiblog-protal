@@ -41,9 +41,8 @@ export function hitApi(data) {
 // 搜索文章
 export function searchArticleApi(data) {
   return request({
-    url: url + '/searchArticle',
-    method: 'post',
-    data: Qs.stringify(data)
+    url: url + '/searchArticle?' + Qs.stringify(data),
+    method: 'get'
   })
 }
 

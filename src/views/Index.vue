@@ -25,7 +25,6 @@ export default {
         pageSize: 5
       },
       isLoading: false,
-      isEnd: false,
       scrollEvent: null
     }
   },
@@ -44,7 +43,6 @@ export default {
             this.articleList = this.articleList.concat(res.data.records)
             this.isLoading = false
           } else {
-            this.isEnd = true
             window.removeEventListener('scroll', this.scrollEvent, false)
           }
         }
@@ -54,7 +52,7 @@ export default {
       this.isLoading = false
       this.scrollEvent = window.onscroll = () => {
         // 距离底部200px时加载一次
-        const bottomOfWindow = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight <= 200
+        const bottomOfWindow = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight <= 300
         if (bottomOfWindow && !this.isLoading) {
           this.isLoading = true
           this.page.pageNum++
