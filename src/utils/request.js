@@ -22,7 +22,6 @@ const service = axios.create({
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 200000 // request timeout
 })
-console.log(getBaseUrl())
 service.interceptors.request.use(
   config => {
     // do something before request is sent
