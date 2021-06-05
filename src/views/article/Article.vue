@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <div class="main">
+    <div class="main" v-occupy="{ data: content, config }">
       <div>
         <div class="article-header">
-          <h2 class="title">
+          <h2 class="title" v-occupy="{ data: article.title, config }">
             {{ article.title }}
           </h2>
         </div>
@@ -45,7 +45,12 @@ export default {
       article: {},
       content: '',
       authorImg: '',
-      tagList: []
+      tagList: [],
+      config: {
+        width: '200px',
+        height: '18px',
+        background: '#ddd'
+      }
     }
   },
   created() {

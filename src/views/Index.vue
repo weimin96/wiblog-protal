@@ -1,8 +1,10 @@
 <template>
   <div class="home">
     <div class="flow-list-container">
-      <div v-for="item in articleList" :key="item.id" class="flow-list-ul">
-        <article-card-item :data="item" />
+      <div v-for="item in articleList" :key="item.id">
+        <div class="flow-list-ul">
+          <article-card-item :data="item" />
+        </div>
       </div>
     </div>
   </div>

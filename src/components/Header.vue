@@ -5,9 +5,9 @@
         wiblog
       </b-navbar-brand>
       <b-navbar-nav>
-        <b-nav-form>
-          <b-form-input v-model="searchVal" size="sm" class="mr-sm-2" placeholder="" />
-          <b-button size="sm" class="my-2 my-sm-0" type="submit" @click="search">
+        <b-nav-form class="search-form">
+          <b-form-input v-model="searchVal" size="sm" class="mr-sm-2" placeholder="" autocomplete="off" />
+          <b-button size="sm" class="my-2 my-sm-0" type="submit" href="#" @click="search" @keyup.enter.native="search">
             搜索
           </b-button>
         </b-nav-form>
@@ -58,6 +58,9 @@ export default {
       this.$router.push(url)
     },
     search() {
+      if (this.searchVal === null || this.searchVal.trim() === '') {
+        return
+      }
       this.$router.push({ path: '/search', query: { val: this.searchVal }})
       this.$bus.emit('search', this.searchVal)
     }
@@ -67,9 +70,15 @@ export default {
 
 <style lang="scss" scoped>
   .form-control{
-    width: 9rem;
+    width: 10rem;
   }
   .navbar-brand{
     margin-right: 0.5rem;
+  }
+  .search-form {
+    color: #fff;
+    a{
+      color: #fff;
+    }
   }
 </style>

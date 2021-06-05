@@ -61,7 +61,7 @@ service.interceptors.response.use(
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 10000) {
       Message({
-        message: res.message || '服务器异常！',
+        message: res.msg || '服务器异常！',
         type: 'error',
         duration: 5 * 1000
       })
@@ -73,7 +73,7 @@ service.interceptors.response.use(
           window.location.href = window.origin + '/login'
         }, 100)
       }
-      return Promise.reject(new Error(res.message || '服务器异常！'))
+      return Promise.reject(new Error(res.msg || '服务器异常！'))
     } else {
       return res
     }

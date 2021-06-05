@@ -39,7 +39,7 @@ module.exports = {
         // 时间格式化
         moment: 'moment',
         // JavaScript 实用工具库
-        $_: 'lodash',
+        // $_: 'lodash',
         $: 'jquery'
       }),
       new HtmlWebpackPlugin({
@@ -61,6 +61,21 @@ module.exports = {
     optimization: {
       minimizer: [new TerserPlugin({ terserOptions: { compress: { drop_console: true }}})]
     }
+    // module: {
+    //   rules: [
+    //     {
+    //       test: /\.js$/,
+    //       // Exclude transpiling `node_modules`, except `bootstrap-vue/src`
+    //       exclude: /node_modules\/(?!bootstrap-vue\/src\/)/,
+    //       use: {
+    //         loader: 'babel-loader',
+    //         options: {
+    //           presets: ['env']
+    //         }
+    //       }
+    //     }
+    //   ]
+    // }
   },
   chainWebpack: (config) => {
     // 忽略的打包文件

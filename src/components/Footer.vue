@@ -1,5 +1,12 @@
 <template>
-  <div class="footer" />
+  <div class="footer">
+    <div>
+      COPYRIGHT 2021 <span>WIBLOG | 歪博网.</span> ALL RIGHTS RESERVED.
+    </div>
+    <div>
+      粤ICP备17127817号-1
+    </div>
+  </div>
 </template>
 
 <script>
@@ -10,7 +17,12 @@ export default {
 
 <style lang="scss" scoped>
 .footer{
-  height: 40px;
   background-color: #343a40;
+  color: rgba(255,255,255,.3);
+  padding: 15px 10px;
+  font-size: 13px;
+  span {
+    color: rgba(255,255,255,.5)
+  }
 }
 </style>

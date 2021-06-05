@@ -8,11 +8,10 @@
           </a>
         </div>
         <div class="abstract">
-          <span>{{ item.createTime | dateFormat }} - </span>
+          <span class="time">{{ item.createTime | dateFormat }} - </span>
           <span v-html="item.content" />
-          <div class="category">
-            <span class="category-tag el-tag el-tag--light">{{ menuVal(item.categoryId) }}
-            </span>
+          <div class="category-tag">
+            <a>{{ menuVal(item.categoryId) }}</a>
           </div>
         </div>
       </div>
@@ -114,28 +113,46 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .card{
-    background-color: #fff;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    padding: 24px;
-    .title {
-      line-height: 1.54;
-      padding-bottom: 10px;
-      font-weight: 400;
-      font-size: medium;
-      margin-bottom: 1px;
+    .card {
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 24px;
+        border-bottom: 0;
+
+        .title {
+            line-height: 1.54;
+            padding-bottom: 10px;
+            font-weight: 400;
+            font-size: medium;
+            margin-bottom: 1px;
+        }
+
+        .abstract {
+            font-size: 13px;
+            .time {
+                color: #333;
+                font-style: italic;
+            }
+            /deep/ p {
+                color: red;
+                display: inline;
+                font-weight: bold;
+            }
+
+            .category-tag {
+                padding: 8px 0 0 0;
+
+                a {
+                    display: inline-block;
+                    border-radius: 3px;
+                    background-color: #f2f5fb;
+                    padding: 2px 8px;
+                    margin-right: 10px;
+                    font-size: 12px;
+                    color: #999;
+                    margin-bottom: 10px;
+                }
+            }
+        }
     }
-    .abstract {
-      font-size: 13px;
-      /deep/ p {
-        color: red;
-        display: inline;
-        font-weight: bold;
-      }
-      .category {
-        margin-top: 8px;
-      }
-    }
-  }
 </style>
