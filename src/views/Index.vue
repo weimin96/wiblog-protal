@@ -1,41 +1,40 @@
 <template>
-  <div class="home">
-    <div class="flow-list-container">
-      <div v-for="item in articleList" :key="item.id">
-        <div class="flow-list-ul">
-          <article-card-item :data="item" />
+  <scroll-layout
+    ref="scrollLayout"
+    :page-num.sync="page.pageNum"
+    @load="getArticle"
+  >
+    <div class="home">
+      <div class="flow-list-container">
+        <div v-for="item in articleList" :key="item.id">
+          <div class="flow-list-ul">
+            <article-card-item :data="item" />
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </scroll-layout>
 </template>
 
 <script>
 import { articlesApi } from '@/api/article'
 import ArticleCardItem from '@c/home/ArticleCardItem'
+import ScrollLayout from '@c/ScrollLayout'
 
 export default {
   name: 'Index',
   components: {
+    ScrollLayout,
     ArticleCardItem
   },
   data() {
     return {
       articleList: [],
       page: {
-        pageNum: 1,
+        pageNum: 0,
         pageSize: 5
-      },
-      isLoading: false,
-      scrollEvent: null
+      }
     }
-  },
-  mounted() {
-    this.scroll()
-    this.getArticle()
-  },
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.scrollEvent, false)
   },
   methods: {
     getArticle() {
@@ -43,24 +42,11 @@ export default {
         if (res.code === 10000) {
           if (res.data.records.length > 0) {
             this.articleList = this.articleList.concat(res.data.records)
-            this.isLoading = false
-          } else {
-            window.removeEventListener('scroll', this.scrollEvent, false)
           }
+          this.$refs.scrollLayout.pages = res.data.pages
         }
+        this.$refs.scrollLayout.isLoading = false
       })
-    },
-    scroll() {
-      this.isLoading = false
-      this.scrollEvent = window.onscroll = () => {
-        // 距离底部200px时加载一次
-        const bottomOfWindow = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight <= 300
-        if (bottomOfWindow && !this.isLoading) {
-          this.isLoading = true
-          this.page.pageNum++
-          this.getArticle()
-        }
-      }
     }
   }
 }

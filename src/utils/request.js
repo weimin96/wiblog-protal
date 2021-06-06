@@ -8,8 +8,9 @@
 import axios from 'axios'
 import { getToken } from '@/utils/auth'
 import store from '@/store'
-import { Message } from 'element-ui'
+// import { Message } from 'element-ui'
 import NProgress from 'nprogress'
+import { Message } from 'element-ui'
 import 'nprogress/nprogress.css'
 
 export const getBaseUrl = () => {
@@ -59,15 +60,8 @@ service.interceptors.response.use(
     NProgress.done()
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 10000) {
-      Message({
-        message: res.msg || '服务器异常！',
-        type: 'error',
-        duration: 5 * 1000
-      })
-
-      // need login;
+      Message.error(res.msg || '服务器异常！')
       if (res.ackCode === 401) {
-        // to re-login
         setTimeout(() => {
           window.location.href = window.origin + '/login'
         }, 100)
@@ -79,11 +73,7 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+    // Message.error(error.message)
     return Promise.reject(error)
   }
 )

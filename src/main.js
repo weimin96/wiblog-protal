@@ -4,9 +4,10 @@ import router from './router/index'
 import store from './store'
 import Router from 'vue-router'
 import VueOccupy from 'vue-occupy'
+import infiniteScroll from 'vue-infinite-scroll'
 
 import { NavbarPlugin, ButtonPlugin, FormInputPlugin } from 'bootstrap-vue'
-import { Backtop } from 'element-ui'
+import { Backtop, Message } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // yarn add vue-bus
 import VueBus from 'vue-bus'
@@ -20,13 +21,15 @@ import filters from '@/utils/filters'
 Vue.config.productionTip = false
 Vue.use(VueBus)
 Vue.use(Backtop)
-
+Vue.use(infiniteScroll)
+Vue.prototype.$message = Message
 // Vue.use(Message)
 Vue.use(VueOccupy)
 // Make BootstrapVue available throughout your project
 Vue.use(NavbarPlugin)
 Vue.use(ButtonPlugin)
 Vue.use(FormInputPlugin)
+
 // Optionally install the BootstrapVue icon components plugin
 // Vue.use(IconsPlugin)
 

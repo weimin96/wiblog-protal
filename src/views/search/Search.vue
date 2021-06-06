@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <scroll-layout
+    ref="scrollLayout"
+    :page-num.sync="param.pageNum"
+    @load="search"
+  >
     <div v-for="item in list" :key="item.id">
       <div class="card" @click="gotoPage(item.url)">
         <div class="title">
@@ -16,27 +20,30 @@
         </div>
       </div>
     </div>
-  </div>
+  </scroll-layout>
 </template>
 
 <script>
 import { searchArticleApi } from '@/api/article'
 import { getQueryVariable } from '@/utils/utils'
 import { mapState } from 'vuex'
+import ScrollLayout from '@c/ScrollLayout'
 
 export default {
   name: 'Search',
+  components: {
+    ScrollLayout
+  },
   data() {
     return {
       searchVal: '',
       list: [],
-      page: {
+      param: {
         keyword: '',
-        pageNum: 0,
+        // 这里从0开始
+        pageNum: -1,
         pageSize: 4
-      },
-      isLoading: false,
-      scrollEvent: null
+      }
     }
   },
   computed: {
@@ -57,12 +64,6 @@ export default {
   },
   mounted() {
     this.$bus.on('search', this.searchNewPage)
-    this.searchVal = getQueryVariable('val')
-    this.scroll()
-    this.search()
-  },
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.scrollEvent, false)
   },
   methods: {
     searchNewPage(val) {
@@ -70,43 +71,34 @@ export default {
       if (!this.searchVal || this.searchVal.trim() === '') {
         return
       }
-      this.page.keyword = val
-      searchArticleApi(this.page).then(res => {
+      this.param.keyword = val
+      searchArticleApi(this.param).then(res => {
         if (res.code === 10000) {
           this.list = res.data
         }
       })
     },
     search() {
-      if (!this.searchVal || this.searchVal.trim() === '') {
-        return
+      if (this.searchVal === '') {
+        this.searchVal = getQueryVariable('val')
+        if (this.searchVal.trim() === '') {
+          return
+        }
       }
-      this.page.keyword = this.searchVal
-      searchArticleApi(this.page).then(res => {
+      this.param.keyword = this.searchVal
+      searchArticleApi(this.param).then(res => {
         if (res.code === 10000) {
           if (res.data.length > 0) {
             this.list = this.list.concat(res.data)
-            this.isLoading = false
           } else {
-            window.removeEventListener('scroll', this.scrollEvent, false)
+            this.$refs.scrollLayout.isEnd = true
           }
         }
+        this.$refs.scrollLayout.isLoading = false
       })
     },
     gotoPage(url) {
       this.$router.push(url)
-    },
-    scroll() {
-      this.isLoading = false
-      this.scrollEvent = window.onscroll = () => {
-        // 距离底部200px时加载一次
-        const bottomOfWindow = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight <= 300
-        if (bottomOfWindow && !this.isLoading) {
-          this.isLoading = true
-          this.page.pageNum++
-          this.search()
-        }
-      }
     }
   }
 }
