@@ -1,5 +1,5 @@
 <template>
-  <scroll-layout
+  <lazy-scroll-layout
     ref="scrollLayout"
     :page-num.sync="param.pageNum"
     @load="search"
@@ -20,19 +20,19 @@
         </div>
       </div>
     </div>
-  </scroll-layout>
+  </lazy-scroll-layout>
 </template>
 
 <script>
 import { searchArticleApi } from '@/api/article'
 import { getQueryVariable } from '@/utils/utils'
 import { mapState } from 'vuex'
-import ScrollLayout from '@c/ScrollLayout'
+import LazyScrollLayout from '@c/LazyScrollLayout'
 
 export default {
   name: 'Search',
   components: {
-    ScrollLayout
+    LazyScrollLayout
   },
   data() {
     return {

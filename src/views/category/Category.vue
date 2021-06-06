@@ -1,5 +1,5 @@
 <template>
-  <scroll-layout
+  <lazy-scroll-layout
     ref="scrollLayout"
     :page-num.sync="param.pageNum"
     @load="getArticle"
@@ -13,19 +13,19 @@
         </div>
       </div>
     </div>
-  </scroll-layout>
+  </lazy-scroll-layout>
 </template>
 
 <script>
 import { articlesApi } from '@/api/article'
 import { getCategoryIdByUrlApi } from '@/api/category'
 import ArticleCardItem from '@c/home/ArticleCardItem'
-import ScrollLayout from '@c/ScrollLayout'
+import LazyScrollLayout from '@c/LazyScrollLayout'
 
 export default {
   name: 'Category',
   components: {
-    ScrollLayout,
+    LazyScrollLayout,
     ArticleCardItem
   },
   data() {
