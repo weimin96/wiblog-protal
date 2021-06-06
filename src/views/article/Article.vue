@@ -1,33 +1,35 @@
 <template>
-  <div class="container">
-    <div class="main" v-occupy="{ data: content, config }">
-      <div>
-        <div class="article-header">
-          <h2 class="title" v-occupy="{ data: article.title, config }">
-            {{ article.title }}
-          </h2>
-        </div>
-        <div class="top-meta">
-          <div class="postMetaInline-avatar">
-            <a>
-              <img :src="authorImg" alt="" height="32" width="32" class="avatar" onerror="this.src = 'https://wiblog-1251822424.cos.ap-guangzhou.myqcloud.com/20210531150120-avatar.svg'"></a>
-          </div>
-          <div class="postMetaInline-feedSummary">
-            <span class="cute">
-              <a>{{ article.author }}</a></span>
-            <span class="postMetaInline--supplemental">{{ article.createTime | dateFormat }}</span>
-          </div>
-        </div>
-        <div class="article-content" v-html="content" />
-        <div v-for="item in tagList" :key="item" class="post-tags">
-          <a rel="tag">{{ item }}</a>
-        </div>
+  <scroll-layout>
+    <div class="container">
+      <div class="main">
         <div>
-          收藏 点赞 评论
+          <div class="article-header">
+            <h2 class="title">
+              {{ article.title }}
+            </h2>
+          </div>
+          <div class="top-meta">
+            <div class="postMetaInline-avatar">
+              <a>
+                <img :src="authorImg" alt="" height="32" width="32" class="avatar" onerror="this.src = 'https://wiblog-1251822424.cos.ap-guangzhou.myqcloud.com/20210531150120-avatar.svg'"></a>
+            </div>
+            <div class="postMetaInline-feedSummary">
+              <span class="cute">
+                <a>{{ article.author }}</a></span>
+              <span class="postMetaInline--supplemental">{{ article.createTime | dateFormat }}</span>
+            </div>
+          </div>
+          <div class="article-content" v-html="content" v-occupy="{ data: content, config }" />
+          <div v-for="item in tagList" :key="item" class="post-tags">
+            <a rel="tag">{{ item }}</a>
+          </div>
+          <div>
+            收藏 点赞 评论
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </scroll-layout>
 </template>
 
 <script>
@@ -37,9 +39,11 @@ import marked from 'marked'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/tomorrow-night.css'
 import '@/style/article.scss'
+import ScrollLayout from '@c/ScrollLayout'
 
 export default {
   name: 'Article',
+  components: { ScrollLayout },
   data() {
     return {
       article: {},

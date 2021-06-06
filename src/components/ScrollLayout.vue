@@ -3,18 +3,7 @@
     <div class="el-scrollbar__wrap">
       <div class="el-scrollbar__view">
         <Header />
-        <div
-          v-infinite-scroll="load"
-          infinite-scroll-disabled="stop"
-          infinite-scroll-distance="50"
-        >
-          <slot />
-          <div v-if="num === pages || isEnd" class="wrapper">
-            <span class="line" />
-            <span class="content">我是有底线的</span>
-            <span class="line" />
-          </div>
-        </div>
+        <slot />
         <Footer />
         <el-backtop target=".page-component__scroll .el-scrollbar__wrap" :bottom="50" :right="20">
           <div
@@ -42,43 +31,10 @@ import Header from '@c/Header'
 import Footer from '@c/Footer'
 
 export default {
-  name: 'LazyScrollLayout',
+  name: 'ScrollLayout',
   components: {
     Header,
     Footer
-  },
-  props: {
-    pageNum: {
-      type: Number,
-      default: 0
-    }
-  },
-  data() {
-    return {
-      isLoading: false,
-      pages: 1,
-      isEnd: false
-    }
-  },
-  computed: {
-    num: {
-      get() {
-        return this.pageNum
-      },
-      set(val) {
-        this.$emit('update:pageNum', val)
-      }
-    },
-    stop() {
-      return this.isLoading || this.pageNum >= this.pages || this.isEnd
-    }
-  },
-  methods: {
-    load() {
-      this.isLoading = true
-      this.num++
-      this.$emit('load')
-    }
   }
 }
 </script>
